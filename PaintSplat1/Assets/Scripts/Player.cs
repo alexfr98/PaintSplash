@@ -7,7 +7,6 @@ using Photon.Pun;
 public class Player : MonoBehaviour
 {
     public float speed = 3;
-    //count points
 
     PhotonView view;
 
