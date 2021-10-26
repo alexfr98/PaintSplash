@@ -202,6 +202,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16092409}
   m_CullTransparentMesh: 1
+--- !u!1 &19404023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 19404024}
+  m_Layer: 0
+  m_Name: LevelUIRow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &19404024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19404023}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1873586, y: -0.031509887, z: -12.881018}
+  m_LocalScale: {x: 1.1206112, y: 1.1206112, z: 1.1206112}
+  m_Children:
+  - {fileID: 1772739622}
+  - {fileID: 290448045}
+  m_Father: {fileID: 862005637}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &24167640
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +247,7 @@ GameObject:
   - component: {fileID: 24167643}
   - component: {fileID: 24167642}
   m_Layer: 5
-  m_Name: CreateRoom
+  m_Name: CreateRoomButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,7 +266,7 @@ RectTransform:
   m_Children:
   - {fileID: 1692675390}
   m_Father: {fileID: 280897471}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -287,23 +319,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 349979237}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: ChangeLobby
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 862005636}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 349979236}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Lobby1CreateRoomButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -469,7 +489,7 @@ RectTransform:
   m_Children:
   - {fileID: 289074726}
   m_Father: {fileID: 862005637}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -522,11 +542,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 349979237}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: ChangeLobby
-        m_Mode: 2
+        m_MethodName: Lobby2ReadyButtonClicked
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1113541853}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -951,7 +971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &280897471
 Transform:
   m_ObjectHideFlags: 0
@@ -965,8 +985,8 @@ Transform:
   m_Children:
   - {fileID: 1197708182}
   - {fileID: 2028439087}
-  - {fileID: 1219356294}
   - {fileID: 24167641}
+  - {fileID: 1219356294}
   - {fileID: 1730802702}
   - {fileID: 768952911}
   m_Father: {fileID: 122627593}
@@ -1077,19 +1097,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290448044}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 11.494642}
+  m_LocalScale: {x: 0.022309255, y: 0.022309255, z: 0.022309255}
   m_Children:
   - {fileID: 583648504}
   - {fileID: 737414214}
   - {fileID: 466085139}
-  m_Father: {fileID: 862005637}
-  m_RootOrder: 6
+  m_Father: {fileID: 19404024}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.9999998, y: -2.0000024}
+  m_AnchoredPosition: {x: 2.5099173, y: -1.756624}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &290448046
@@ -1141,11 +1161,11 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Option A
+    - m_Text: Level 1
       m_Image: {fileID: 0}
-    - m_Text: Option B
+    - m_Text: Level 2
       m_Image: {fileID: 0}
-    - m_Text: Option C
+    - m_Text: Level 3
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1222,8 +1242,18 @@ MonoBehaviour:
   lobby2: {fileID: 862005636}
   lobby3: {fileID: 1113541853}
   createRoomInput: {fileID: 2028439088}
+  joinRoomInput: {fileID: 1219356295}
   usernameInput: {fileID: 695523182}
   userColorLobby2: {fileID: 257667185}
+  levelInput: {fileID: 290448046}
+  gameLevelRow: {fileID: 19404023}
+  roomNumberLabel: {fileID: 783007867}
+  levelLabel: {fileID: 174510247}
+  player1Label: {fileID: 1594987882}
+  player2Label: {fileID: 721490289}
+  player3Label: {fileID: 1762537513}
+  player4Label: {fileID: 1927901103}
+  startGameButton: {fileID: 1736006651}
 --- !u!4 &349979238
 Transform:
   m_ObjectHideFlags: 0
@@ -1378,7 +1408,7 @@ RectTransform:
   m_Children:
   - {fileID: 1521377414}
   m_Father: {fileID: 862005637}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1431,11 +1461,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 349979237}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: ChangeLobby
-        m_Mode: 2
+        m_MethodName: Lobby2CancelButtonClicked
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 280897470}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1747,7 +1777,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Option A
+  m_Text: Level 1
 --- !u!222 &583648506
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2210,7 +2240,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player2
+  m_Text: 
 --- !u!222 &721490290
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2559,8 +2589,7 @@ Transform:
   - {fileID: 1608243030}
   - {fileID: 2008074964}
   - {fileID: 257667184}
-  - {fileID: 1772739622}
-  - {fileID: 290448045}
+  - {fileID: 19404024}
   - {fileID: 512878692}
   - {fileID: 62398621}
   m_Father: {fileID: 122627593}
@@ -2657,7 +2686,7 @@ GameObject:
   - component: {fileID: 1064046921}
   - component: {fileID: 1064046920}
   m_Layer: 5
-  m_Name: titleLoad
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2739,7 +2768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1113541854
 Transform:
   m_ObjectHideFlags: 0
@@ -3074,7 +3103,7 @@ GameObject:
   - component: {fileID: 1219356296}
   - component: {fileID: 1219356295}
   m_Layer: 5
-  m_Name: JoinRoom
+  m_Name: JoinRoomInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3094,7 +3123,7 @@ RectTransform:
   - {fileID: 975504628}
   - {fileID: 1152215382}
   m_Father: {fileID: 280897471}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3368,11 +3397,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 349979237}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: ChangeLobby
-        m_Mode: 2
+        m_MethodName: Lobby3ExitButtonClicked
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 280897470}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3691,7 +3720,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 1
+  m_Text: 
 --- !u!222 &1594987883
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4033,7 +4062,7 @@ GameObject:
   - component: {fileID: 1730802704}
   - component: {fileID: 1730802703}
   m_Layer: 5
-  m_Name: JoinRoom
+  m_Name: JoinRoomButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4105,11 +4134,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 349979237}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: ChangeLobby
-        m_Mode: 2
+        m_MethodName: Lobby1JoinRoomButtonClicked
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 862005636}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4235,7 +4264,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1736006652}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 349979237}
+        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+        m_MethodName: Lobby3StartGameButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1736006652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4344,7 +4385,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 3
+  m_Text: 
 --- !u!222 &1762537514
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4379,15 +4420,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772739621}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.030870007, y: 0.030870007, z: 0.030870007}
+  m_LocalPosition: {x: 0, y: 0, z: 91.807945}
+  m_LocalScale: {x: 0.027547473, y: 0.027547473, z: 0.027547473}
   m_Children: []
-  m_Father: {fileID: 862005637}
-  m_RootOrder: 5
+  m_Father: {fileID: 19404024}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3.6737897, y: -2.000001}
+  m_AnchoredPosition: {x: -3.4455736, y: -1.7566228}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1772739623
@@ -4739,7 +4780,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 4
+  m_Text: 
 --- !u!222 &1927901104
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4840,7 +4881,7 @@ GameObject:
   - component: {fileID: 2028439089}
   - component: {fileID: 2028439088}
   m_Layer: 5
-  m_Name: CreateRoom
+  m_Name: CreateRoomInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

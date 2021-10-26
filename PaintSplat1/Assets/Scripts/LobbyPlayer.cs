@@ -13,19 +13,19 @@ public class LobbyPlayer : MonoBehaviour
     {
 
     }
-    public void setUsername(string username)
+    public void SetUsername(string username)
     {
         this.username = username;
     }
-    public string getUsername()
+    public string GetUsername()
     {
         return this.username;
     }
-    public void setColor(Color color)
+    public void SetColor(Color color)
     {
         this.color = color;
     }
-    public Color getColor()
+    public Color GetColor()
     {
         return this.color;
     }

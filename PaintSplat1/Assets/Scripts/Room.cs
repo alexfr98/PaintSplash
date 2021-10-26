@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class Room
     private string roomName;
 
     private LobbyPlayer owner;
+    private int level;
 
     private LinkedList<LobbyPlayer> players;
 
@@ -15,41 +17,53 @@ public class Room
     // Start is called before the first frame update
     public Room()
     {
-        availableColors = new LinkedList<Color>();
-        availableColors.AddFirst(Color.blue);
-        availableColors.AddFirst(Color.red);
-        availableColors.AddFirst(Color.green);
-        availableColors.AddFirst(Color.yellow);
+        availableColors = new LinkedList<Color>(new[] { Color.blue, Color.red, Color.green, Color.yellow});
+        players = new LinkedList<LobbyPlayer>();
     }
-    public Color getRandomAvailableColor()
+    public Color GetRandomAvailableColor()
     {
         Color color = availableColors.First.Value;
         availableColors.RemoveFirst();
         return color;
     }
 
-    public LobbyPlayer getOnwer()
+    public void CancelColorAttribution(LobbyPlayer player)
+    {
+        availableColors.AddFirst(player.GetColor());
+    }
+
+    public LobbyPlayer GetOnwer()
     {
         return owner;
     }
-    public LinkedList<LobbyPlayer> getPlayers()
+    public LinkedList<LobbyPlayer> GetPlayers()
     {
         return players;
     }
-    public string getRoomName()
+    public string GetRoomName()
     {
         return roomName;
     }
 
-    public void setOnwer(LobbyPlayer owner)
+    public int GetLevel()
+    {
+        return this.level;
+    }
+
+    public void SetLevel(int level)
+    {
+        this.level = level;
+    }
+
+    public void SetOnwer(LobbyPlayer owner)
     {
         this.owner = owner;
     }
-    public void setPlayers(LinkedList<LobbyPlayer> players)
+    public void SetPlayers(LinkedList<LobbyPlayer> players)
     {
         this.players = players;
     }
-    public void setRoomName(string name)
+    public void SetRoomName(string name)
     {
         this.roomName = name;
     }
