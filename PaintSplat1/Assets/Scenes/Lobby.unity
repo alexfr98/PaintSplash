@@ -1238,6 +1238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2011f436725e047ad9f505ed397ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  createAndJoinRooms: {fileID: 1498104946}
   lobby: {fileID: 280897470}
   lobby2: {fileID: 862005636}
   lobby3: {fileID: 1113541853}

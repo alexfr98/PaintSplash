@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class LobbyManager : MonoBehaviour
+public class LobbyManager : MonoBehaviourPunCallbacks
 {
     [Header("Lobbies objects")]
     public GameObject lobby;
@@ -46,18 +47,48 @@ public class LobbyManager : MonoBehaviour
         currentPlayer = new LobbyPlayer();
     }
 
-    public void ChangeLobby(GameObject newLobby)
+    public void CreateRoom()
     {
-        currentLobby.SetActive(false);
-        currentLobby = newLobby;
-        currentLobby.SetActive(true);
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 4;
+        PhotonNetwork.CreateRoom(createRoomInput.text, roomOptions);
     }
+
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("Room created!");
+        ChangeLobby(lobby2);
+    }
+
+    public void JoinRoom()
+    {
+        PhotonNetwork.JoinRoom(this.joinRoomInput.text);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("Room Joined!");
+        ChangeLobby(lobby2);
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("Join room failed: " + message);
+    }
+    public void ChangeLobby(GameObject newLobby)
+        {
+            currentLobby.SetActive(false);
+            currentLobby = newLobby;
+            currentLobby.SetActive(true);
+        }
 
     public void Lobby1CreateRoomButtonClicked()
     {
         // Take the room name
         if (createRoomInput.text != "") //TODO: AND GAME ROOM DONT EXISTS ALREADY
         {
+            CreateRoom();
+
             SetRoomName(createRoomInput.text);
             SetRoomOwner(currentPlayer);
             Debug.Log("Room name :" + room.GetRoomName());
@@ -67,8 +98,6 @@ public class LobbyManager : MonoBehaviour
             userColorLobby2.color = this.currentPlayer.GetColor();
             this.room.GetPlayers().AddLast(currentPlayer);
             this.gameLevelRow.gameObject.SetActive(true);
-            ChangeLobby(lobby2);
-
             return;
         }
 
@@ -81,20 +110,18 @@ public class LobbyManager : MonoBehaviour
         // Take the room name
         if (joinRoomInput.text != "") //TODO: AND GAME ROOM EXISTS
         {
-            // Get room informations
-            Debug.Log("Room name :" + room.GetRoomName());
+            // Try to connect to room
+            JoinRoom();
 
             // Assign a color to the current player (Not taken by another one)
             this.currentPlayer.SetColor(room.GetRandomAvailableColor());
             userColorLobby2.color = this.currentPlayer.GetColor();
             this.room.GetPlayers().AddLast(currentPlayer);
             this.gameLevelRow.gameObject.SetActive(false);
-            ChangeLobby(lobby2);
-
-            return;
+        return;
         }
 
-        //TODO: COULD GIVE A RANDOM NAME or display a message to say its wrong
+        //TODO: display a message to say its wrong
         return;
     }
 
@@ -126,6 +153,8 @@ public class LobbyManager : MonoBehaviour
 
     public void Lobby2CancelButtonClicked()
     {
+        Debug.Log(PhotonNetwork.CurrentRoom);
+
         this.room.CancelColorAttribution(currentPlayer);
         if (this.room.GetOnwer() == this.currentPlayer)
         {
