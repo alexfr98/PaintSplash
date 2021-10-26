@@ -5,13 +5,19 @@ using UnityEngine;
 
 public class Room
 {
+    // no need
     private string roomName;
 
+    // no need
     private LobbyPlayer owner;
+
+    // need
     private int level;
 
+    // no need
     private LinkedList<LobbyPlayer> players;
 
+    // Need
     public LinkedList<Color> availableColors;
 
     // Start is called before the first frame update
