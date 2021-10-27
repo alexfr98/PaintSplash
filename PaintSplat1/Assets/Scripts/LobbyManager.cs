@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections.Generic;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -32,6 +33,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Text player4Label;
     public Button startGameButton;
 
+    private System.Tuple<string, Color> playerColor;
     private LobbyPlayer currentPlayer;
     private Room room;
 
@@ -68,6 +70,39 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Room Joined!");
+        List<string> allowedColors = new List<string> { "red", "green", "blue", "yellow" };
+        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        {
+            string playerColor = (string)player.CustomProperties["playerColor"];
+            if (allowedColors.Contains(playerColor))
+            {
+                allowedColors.Remove(playerColor);
+            }
+        }
+        int randomColor = Random.Range(0, allowedColors.Count);
+        string randomColorString = allowedColors[randomColor];
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "playerColor", randomColorString } });
+
+        if (randomColorString == "red") {
+            this.playerColor = new System.Tuple<string, Color>("red", Color.red);
+            userColorLobby2.color = Color.red;
+        }
+        else if (randomColorString == "green")
+        {
+            this.playerColor = new System.Tuple<string, Color>("green", Color.green);
+            userColorLobby2.color = Color.green;
+        }
+        else if (randomColorString == "blue")
+        {
+            this.playerColor = new System.Tuple<string, Color>("blue", Color.blue);
+            userColorLobby2.color = Color.blue;
+        }
+        else
+        {
+            this.playerColor = new System.Tuple<string, Color>("yellow", Color.yellow);
+            userColorLobby2.color = Color.yellow;
+        }
+
         ChangeLobby(lobby2);
     }
 
@@ -75,6 +110,56 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Join room failed: " + message);
     }
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player other)
+    {
+        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
+        string line = "";
+        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        {
+            line += player.NickName;
+        }
+        this.levelLabel.text = line;
+        if (playerCount < 1) { this.player1Label.text = ""; }
+        if (playerCount < 2) { this.player2Label.text = ""; }
+        if (playerCount < 3) { this.player3Label.text = ""; }
+        if (playerCount < 4) { this.player4Label.text = ""; }
+        this.levelLabel.text = "Number of players: " + PhotonNetwork.CurrentRoom.PlayerCount;
+    }
+
+    public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player player, Hashtable changedProps)
+    {
+        Debug.Log("Player: "+player+" Changed properties: "+changedProps);
+        this.levelLabel.text = "Number of players: " + PhotonNetwork.CurrentRoom.PlayerCount;
+        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
+        if (playerCount >= 1) { this.player1Label.text = players[0].NickName; this.player1Label.color = getColor((string)players[0].CustomProperties["playerColor"]); }
+        if (playerCount >= 2) { this.player2Label.text = players[1].NickName; this.player2Label.color = getColor((string)players[1].CustomProperties["playerColor"]); }
+        if (playerCount >= 3) { this.player3Label.text = players[2].NickName; this.player3Label.color = getColor((string)players[2].CustomProperties["playerColor"]); }
+        if (playerCount >= 4) { this.player4Label.text = players[3].NickName; this.player4Label.color = getColor((string)players[3].CustomProperties["playerColor"]); }
+    }
+
+    private Color getColor(string colorSrting)
+    {
+        if (colorSrting == "red")
+        {
+            return Color.red;
+        }
+        else if (colorSrting == "green")
+        {
+            return Color.green;
+        }
+        else if (colorSrting == "blue")
+        {
+            return Color.blue;
+        }
+        else
+        {
+            return Color.yellow;
+        }
+    }
+
     public void ChangeLobby(GameObject newLobby)
         {
             currentLobby.SetActive(false);
@@ -129,14 +214,25 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (usernameInput.text != "") // And username is not already taken
         {
+            PhotonNetwork.LocalPlayer.NickName = usernameInput.text;
+            Hashtable hash = new Hashtable();
+            hash.Add("playerName", usernameInput.text);
+            hash.Add("playerColor", this.playerColor.Item1);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
+            int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+            Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
+            if (playerCount >= 1) { this.player1Label.text = players[0].NickName; }
+            if (playerCount >= 2) { this.player2Label.text = players[1].NickName; }
+            if (playerCount >= 3) { this.player3Label.text = players[2].NickName; }
+            if (playerCount >= 4) { this.player4Label.text = players[3].NickName; }
+
             this.currentPlayer.SetUsername(usernameInput.text);
             this.room.GetPlayers().AddLast(this.currentPlayer);
             this.room.SetLevel(levelInput.value);
 
-            this.roomNumberLabel.text = "GAME ROOM: " + this.room.GetRoomName();
-            this.levelLabel.text = "Level: " + (this.room.GetLevel() + 1);
-            this.player1Label.text = this.currentPlayer.GetUsername();
-            this.player1Label.color = this.currentPlayer.GetColor();
+            this.roomNumberLabel.text = "GAME ROOM: " + PhotonNetwork.CurrentRoom.Name;
+            this.levelLabel.text = "Number of players: " + PhotonNetwork.CurrentRoom.PlayerCount;
 
             if (this.room.GetOnwer() == this.currentPlayer)
             {
@@ -153,7 +249,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void Lobby2CancelButtonClicked()
     {
-        Debug.Log(PhotonNetwork.CurrentRoom);
+        PhotonNetwork.LeaveRoom();
 
         this.room.CancelColorAttribution(currentPlayer);
         if (this.room.GetOnwer() == this.currentPlayer)
@@ -174,10 +270,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         // Do stuff to remove the player from the online game room and put back his color in it
 
-        if (this.room.GetOnwer() == this.currentPlayer)
-        {
-            // Destroy the online game room
-        }
+        PhotonNetwork.LeaveRoom();
 
         this.room = new Room();
         this.currentPlayer = new LobbyPlayer();
