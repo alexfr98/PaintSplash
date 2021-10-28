@@ -44,8 +44,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         lobby.SetActive(true);
         lobby2.SetActive(false);
         lobby3.SetActive(false);
-
-        Debug.LogError("Force the build console open...");
     }
 
     public void CreateRoom()
@@ -70,8 +68,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Room Joined!");
         List<string> allowedColors = new List<string> { "red", "green", "blue", "yellow", "cyan" };
-        string line = "";
-        string line2 = "";
+
         foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
             string playerColor = (string)player.CustomProperties["playerColor"];
@@ -79,16 +76,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             {
                 allowedColors.Remove(playerColor);
             }
-            line += " | " + player;
         }
-        foreach (string color in allowedColors)
-        {
-            line2 += " | " + color;
-        }
-        Debug.LogError(line);
-        Debug.LogError(line2);
+
         int randomColor = Random.Range(0, allowedColors.Count);
-        Debug.LogError(randomColor);
         string randomColorString = allowedColors[randomColor];
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "playerColor", randomColorString } });
 
@@ -117,20 +107,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             userColorLobby2.color = Color.yellow;
         }
 
-        line = "";
-        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
-        {
-            line += " | " + player;
-        }
-        line += " | Nb of players = "+ PhotonNetwork.CurrentRoom.PlayerCount;
-        this.debugLabel.text = line;
+        //line = "";
+        //foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        //{
+        //    line += " | " + player;
+        //}
+        //line += " | Nb of players = "+ PhotonNetwork.CurrentRoom.PlayerCount;
+        //this.debugLabel.text = line;
 
         ChangeLobby(lobby2);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("Join room failed: " + message);
+        Debug.Log("Join room failed: " + message); // Do something here
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player other)
@@ -156,14 +146,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             }
             this.startGameButton.gameObject.SetActive(true);
         }
-
-        string line = "";
-        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
-        {
-            line += " | " + player;
-        }
-        line += " | Nb of players = " + PhotonNetwork.CurrentRoom.PlayerCount;
-        this.debugLabel.text = line;
     }
 
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player player, Hashtable changedProps)
@@ -174,24 +156,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (playerCount >= 2) { this.player2Label.text = players[1].NickName; this.player2Label.color = getColor((string)players[1].CustomProperties["playerColor"]); }
         if (playerCount >= 3) { this.player3Label.text = players[2].NickName; this.player3Label.color = getColor((string)players[2].CustomProperties["playerColor"]); }
         if (playerCount >= 4) { this.player4Label.text = players[3].NickName; this.player4Label.color = getColor((string)players[3].CustomProperties["playerColor"]); }
-
-        string line = "";
-        foreach (Photon.Realtime.Player loopplayer in PhotonNetwork.PlayerList)
-        {
-            line += " | " + loopplayer;
-        }
-        line += " | Nb of players = " + PhotonNetwork.CurrentRoom.PlayerCount;
-        this.debugLabel.text = line;
     }
 
     public override void OnLeftRoom()
     {
-        string line = "";
-        foreach (Photon.Realtime.Player loopplayer in PhotonNetwork.PlayerList)
-        {
-            line += " | " + loopplayer;
-        }
-        this.debugLabel.text = line;
         ChangeLobby(lobby);
     }
 
@@ -279,16 +247,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             if (playerCount >= 4) { this.player4Label.text = players[3].NickName; this.player4Label.color = getColor((string)players[3].CustomProperties["playerColor"]); }
 
             this.roomNumberLabel.text = "GAME ROOM: " + PhotonNetwork.CurrentRoom.Name;
-            //TODO: Do the level stuff //this.levelLabel.text = "Number of players: " + PhotonNetwork.CurrentRoom.PlayerCount;
 
             if (PhotonNetwork.CurrentRoom.MasterClientId == PhotonNetwork.LocalPlayer.ActorNumber)
             {
+                Hashtable roomProperties = new Hashtable();
+                roomProperties.Add("Level", this.levelInput.value + 1);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
                 this.startGameButton.gameObject.SetActive(true);
             }
             else
             {
                 this.startGameButton.gameObject.SetActive(false);
             }
+
+            this.levelLabel.text = "Level: " + PhotonNetwork.CurrentRoom.CustomProperties["Level"];
 
             ChangeLobby(lobby3);
         }
