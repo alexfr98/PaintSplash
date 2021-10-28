@@ -685,6 +685,7 @@ RectTransform:
   - {fileID: 280897471}
   - {fileID: 862005637}
   - {fileID: 1113541854}
+  - {fileID: 1423799394}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1238,10 +1239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2011f436725e047ad9f505ed397ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createAndJoinRooms: {fileID: 1498104946}
   lobby: {fileID: 280897470}
   lobby2: {fileID: 862005636}
   lobby3: {fileID: 1113541853}
+  debugLabel: {fileID: 1423799395}
   createRoomInput: {fileID: 2028439088}
   joinRoomInput: {fileID: 1219356295}
   usernameInput: {fileID: 695523182}
@@ -2573,7 +2574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &862005637
 Transform:
   m_ObjectHideFlags: 0
@@ -2769,7 +2770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1113541854
 Transform:
   m_ObjectHideFlags: 0
@@ -3446,7 +3447,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388538083}
   m_CullTransparentMesh: 1
---- !u!1 &1498104945
+--- !u!1 &1423799393
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3454,43 +3455,77 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1498104947}
-  - component: {fileID: 1498104946}
-  m_Layer: 0
-  m_Name: CreateAndJoinRoom
+  - component: {fileID: 1423799394}
+  - component: {fileID: 1423799396}
+  - component: {fileID: 1423799395}
+  m_Layer: 5
+  m_Name: DebugLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1498104946
+--- !u!224 &1423799394
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423799393}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.4036397, y: 0.4036397, z: 0.4036397}
+  m_Children: []
+  m_Father: {fileID: 122627593}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -406.49268}
+  m_SizeDelta: {x: 1913.67, y: 154.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1423799395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498104945}
+  m_GameObject: {fileID: 1423799393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c170d7e384b2b444ba0c8d2a1bad5559, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createInput: {fileID: 2028439088}
-  joinInput: {fileID: 1219356295}
---- !u!4 &1498104947
-Transform:
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Create a room or join one
+--- !u!222 &1423799396
+CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498104945}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.3689814, y: -0.82687443, z: 367.48636}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1423799393}
+  m_CullTransparentMesh: 1
 --- !u!1 &1521377413
 GameObject:
   m_ObjectHideFlags: 0
