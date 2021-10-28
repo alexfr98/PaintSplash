@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -273,7 +274,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void Lobby3StartGameButtonClicked()
     {
-        // Do stuff before game starts
+        SceneManager.LoadScene("Game");
     }
 
     public void Lobby3ExitButtonClicked()
