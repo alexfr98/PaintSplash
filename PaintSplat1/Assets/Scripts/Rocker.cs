@@ -26,7 +26,6 @@ public class Rocker : ScrollRect
         }
         x = contentPostion.x;
         y = contentPostion.y;
-        Debug.Log(contentPostion);
     }
     public void update()
     {

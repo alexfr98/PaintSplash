@@ -30,11 +30,11 @@ public class Player1 : MonoBehaviour
         {
             transform.Translate(-speed * Time.deltaTime, 0, 0);
         }
-        if (y > 0.005 && transform.position.x <= 6)
+        if (y > 0.005 && transform.position.y <= 6)
         {
             transform.Translate(0, speed * Time.deltaTime ,0 );
         }
-        if (y < -0.005 && transform.position.x >= -6)
+        if (y < -0.005 && transform.position.y >= -6)
         {
             transform.Translate(0, -speed * Time.deltaTime, 0);
         }

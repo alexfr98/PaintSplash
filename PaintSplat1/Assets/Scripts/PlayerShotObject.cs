@@ -6,37 +6,47 @@ public class PlayerShotObject : MonoBehaviour
 {
     public GameObject Painting;
     GameObject canvas;
+
     // Start is called before the first frame update
     void Start()
     {
-        canvas = GameObject.Find("Image");
+        canvas = GameObject.Find("Window");
     }
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collision)
     {
-        ContactPoint contact = collision.contacts[0];
-        Vector3 pos = contact.point;
+        Debug.Log("heat");
+        //ContactPoint contact = collision.contacts[0];
+        //Vector3 pos = contact.point;
 
-        
-        if (collision.collider.name == "Sphere")
+
+        if (collision.GetComponent<Collider>().name == "Background")
         {
-            Debug.Log(this.gameObject);
+            Debug.Log(collision.GetComponent<Collider>().name);
             Destroy(this.gameObject);
         }
-        else if (collision.collider.name == "Cube")
+        else if (collision.GetComponent<Collider>().name == "Window")
         {
-            Debug.Log(collision.collider.name);
+            Debug.Log(collision.GetComponent<Collider>().name);
             Destroy(this.gameObject);
-            var painting = Instantiate(Painting);
-            painting.transform.parent = canvas.transform;
-            painting.transform.position = pos;
-            painting.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            //var painting = Instantiate(Painting);
+            //painting.transform.parent = canvas.transform;
+            //painting.transform.position = pos;
+            //painting.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.name == "Window")
+        {
+            Debug.Log("hello");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

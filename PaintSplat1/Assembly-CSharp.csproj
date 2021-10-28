@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Shoot.cs" />
     <Compile Include="Assets\Free UI build package\Script\Slide.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
+    <Compile Include="Assets\Scripts\windowScript.cs" />
     <Compile Include="Assets\Free UI build package\Script\Togglescript.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Assets\Scripts\Rocker.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextToggleIsOnTransition.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
-    <Compile Include="Assets\Scripts\windowMove.cs" />
+    <Compile Include="Assets\gameManagerScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
