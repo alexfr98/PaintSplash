@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shoot : MonoBehaviour
 {
     public GameObject Player;
-    public GameObject scoreText;
     public GameObject window;
-    public GameObject painting;
     public GameObject Bullet;
- 
-    private int score = 0;
+
+    public GameObject painting;
     private bool overlap = false;
+
+    public Text scoreText;
+    private int score = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,7 @@ public class Shoot : MonoBehaviour
                 var newPainting = Instantiate(painting, Player.transform.position, Quaternion.identity);
                 newPainting.transform.parent = window.transform;
                 score += 1;
+                scoreText.text = "SCORE : " + score.ToString();
                 //scoreText.text("hello");
 
 
