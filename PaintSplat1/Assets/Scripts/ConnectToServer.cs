@@ -11,6 +11,12 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
     }
+    void Awake()
+    {
+        // #Critical
+        // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
 
     public override void OnConnectedToMaster()
     {
@@ -19,6 +25,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
+        Debug.Log("Lobby joined!");
         SceneManager.LoadScene("Lobby");
     }
 
