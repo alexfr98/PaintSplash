@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
 
 public class Player1 : MonoBehaviour
 {
@@ -10,34 +12,62 @@ public class Player1 : MonoBehaviour
     Vector3 Begin_position;
     float x, y;
 
+	public SpriteRenderer renderer;
+	PhotonView view;
+
     // Start is called before the first frame update
     void Start()
     {
-        Begin_position = Image_2.GetComponent<Transform>().position;
-    }
+		view = GetComponent<PhotonView>();
+		GameObject pl = this.gameObject;
+		pl.GetComponent<PhotonView>().Owner.TagObject = pl;
 
-    // Update is called once per frame
-    void Update()
+		Begin_position = Image_2.GetComponent<Transform>().position;
+
+		Image_2 = GameObject.Find("/Canvas/Image two/Image three").gameObject;
+		Debug.Log(Image_2.name);
+		//FindWithTag("MovePiece").GetComponent<GameObject>();
+		//FindGameObjectWithTag("MovePiece")
+		//renderer.color = new color(1.0f, 0.0f, 0.0f, 0.0f); //players[0].CustomProperties["playerColor"];
+
+	}
+
+	// Update is called once per frame
+	void Update()
     {
-        x = Image_2.GetComponent<Transform>().position.x- Begin_position.x;
-        y = Image_2.GetComponent<Transform>().position.y-Begin_position.y;
+		
+		if (view.IsMine)
+		{
 
-        if (x > 0.005&&transform.position.x<=10)
-        {
-            transform.Translate(speed * Time.deltaTime , 0, 0);
-        }
-        if (x < -0.005 && transform.position.x >= -10)
-        {
-            transform.Translate(-speed * Time.deltaTime, 0, 0);
-        }
-        if (y > 0.005 && transform.position.y <= 6)
-        {
-            transform.Translate(0, speed * Time.deltaTime ,0 );
-        }
-        if (y < -0.005 && transform.position.y >= -6)
-        {
-            transform.Translate(0, -speed * Time.deltaTime, 0);
-        }
+			Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
+			transform.position += input.normalized * speed * Time.deltaTime;
+
+            /*
+			x = Image_2.GetComponent<Transform>().position.x - Begin_position.x;
+			y = Image_2.GetComponent<Transform>().position.y - Begin_position.y;
+
+			if (x > 0.005 && transform.position.x <= 10)
+			{
+				transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+				Debug.Log("XXXXX");
+				//transform.Translate(speed * Time.deltaTime, 0, 0);
+			}
+			if (x < -0.005 && transform.position.x >= -10)
+			{
+				transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
+				//transform.Translate(-speed * Time.deltaTime, 0, 0);
+			}
+			if (y > 0.005 && transform.position.y <= 6)
+			{
+				transform.position += new Vector3( 0, speed * Time.deltaTime, 0);
+				//transform.Translate(0, speed * Time.deltaTime, 0);
+			}
+			if (y < -0.005 && transform.position.y >= -6)
+			{
+				transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
+				//transform.Translate(0, -speed * Time.deltaTime, 0);
+			}*/
+		}
     }
 
 }

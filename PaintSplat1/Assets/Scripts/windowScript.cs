@@ -13,10 +13,11 @@ public class windowScript : MonoBehaviour
     private bool finish = false;
     public Button shootButton;
     public Text gameOverText;
+	public GameObject GOPanel;
     public Text timeText;
     public Button repeatButton;
-    private int timeWaiting = 2;
-    private int gameDuration = 5; //This number is the TOTAL GAME time. So it would be gameDuration-timeWaiting seconds playing
+    private int timeWaiting = 4;
+    private float gameDuration = 50f; //This number is the TOTAL GAME time. So it would be gameDuration-timeWaiting seconds playing
     // Start is called before the first frame update
     void Start()
     {
@@ -25,15 +26,26 @@ public class windowScript : MonoBehaviour
         repeatButton.onClick.AddListener(TaskOnClick);
         repeatButton.gameObject.SetActive(false);
         gameOverText.gameObject.SetActive(false);
-        timeText.gameObject.SetActive(false);
+        GOPanel.gameObject.SetActive(false);
+		timeText.gameObject.SetActive(false);
         shootButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        Debug.Log(Time.time);
+
+		gameDuration -= Time.deltaTime;
+		string x = gameDuration.ToString();
+		timeText.text = (x);
+
+		if (gameDuration <= 0)
+		{
+			finish = true;
+			gameOverText.gameObject.SetActive(true);
+			gameObject.SetActive(false);
+			GOPanel.gameObject.SetActive(true);
+		}
         if (Time.time > timeWaiting && !start) {
             start = true;
             int decision = Random.Range(0, 2);
@@ -51,7 +63,7 @@ public class windowScript : MonoBehaviour
                 rb.AddForce(new Vector2(Random.Range(100, 150) * level, Random.Range(-150, -100) * level));
             }
         }
-        if (Time.time > gameDuration && !finish)
+        if (gameDuration > 0 && !finish)
         {
             repeatButton.gameObject.SetActive(true);
             gameOverText.gameObject.SetActive(true);
@@ -62,11 +74,13 @@ public class windowScript : MonoBehaviour
             timeText.gameObject.SetActive(false);
 
         }
-        if (start && !finish)
-        {
-            timeText.text = "Time: " + (gameDuration - timeWaiting + 1 - (int)(Time.time)).ToString();
-        }
-    }
+
+		if (start && !finish)
+		{
+			//string x = gameDuration.ToString();
+			timeText.text = (x);
+		}
+	}
     private void OnCollisionEnter2D(Collision2D collision)
     {
        

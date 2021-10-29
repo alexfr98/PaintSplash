@@ -17,11 +17,12 @@ public class SpawnPlayers : MonoBehaviour
     void Start()
     {
         Vector2 randomPos = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-        PhotonNetwork.Instantiate(PlayerPrefab.name, randomPos, Quaternion.identity);
-    }
+         PhotonNetwork.Instantiate(PlayerPrefab.name, randomPos, Quaternion.identity);
+		//pl.GetComponent<PhotonView>().owner.TagObject = pl;
+	}
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
         
     }
