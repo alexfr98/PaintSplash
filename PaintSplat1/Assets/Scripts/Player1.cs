@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class Player1 : MonoBehaviour
 {
-    
+
     public GameObject Image_2;
     public float speed=5f;
     Vector3 Begin_position;
@@ -24,18 +24,18 @@ public class Player1 : MonoBehaviour
 
 		Begin_position = Image_2.GetComponent<Transform>().position;
 
-		Image_2 = GameObject.Find("/Canvas/Image two/Image three").gameObject;
+		//Image_2 = GameObject.Find("/Canvas/Image two/Image three").gameObject;
 		Debug.Log(Image_2.name);
 		//FindWithTag("MovePiece").GetComponent<GameObject>();
 		//FindGameObjectWithTag("MovePiece")
-		//renderer.color = new color(1.0f, 0.0f, 0.0f, 0.0f); //players[0].CustomProperties["playerColor"];
+		renderer.color = LobbyManager.getColor((string)PhotonNetwork.LocalPlayer.CustomProperties["playerColor"]);
 
 	}
 
 	// Update is called once per frame
 	void Update()
     {
-		
+
 		if (view.IsMine)
 		{
 

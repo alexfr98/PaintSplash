@@ -164,7 +164,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ChangeLobby(lobby);
     }
 
-    private Color getColor(string colorSrting)
+    public static Color getColor(string colorSrting)
     {
         if (colorSrting.Equals("red"))
         {

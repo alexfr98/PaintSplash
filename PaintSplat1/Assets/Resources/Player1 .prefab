@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf2e38519e52214492d5ee506623166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Image_2: {fileID: 4722570690867331543, guid: ae6e976ed99774d3fae697a8a72ea7df, type: 3}
+  Image_2: {fileID: 9071150608434607099, guid: 78f0366e780254ebaa115758fc79cc09, type: 3}
   speed: 5
-  renderer: {fileID: 0}
+  renderer: {fileID: 2249004478389106587}
 --- !u!143 &2392651197816811316
 CharacterController:
   m_ObjectHideFlags: 0

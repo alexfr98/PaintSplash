@@ -11,17 +11,23 @@ public class Shoot : MonoBehaviour
     public GameObject Bullet;
 
     public GameObject painting;
+    public Sprite bluePainting;
+    public Sprite yellowPainting;
+    public Sprite redPainting;
+    public Sprite greenPainting;
+    public Sprite cyanPainting;
+
     private bool overlap = false;
 
     public Text scoreText;
-    private int score = 0;
+    public static int score = 0;
 
-	
+
 
 	// Start is called before the first frame update
 	void Start()
     {
-
+		score = 0;
 		//gameObject.GetComponent<PhotonView>().Owner;
 
 		var photonViews = UnityEngine.Object.FindObjectsOfType<PhotonView>();
@@ -37,15 +43,36 @@ public class Shoot : MonoBehaviour
 			}
 		}
 
+		this.painting.GetComponent<SpriteRenderer>().sprite = getPaintSpriteFromColor((string)PhotonNetwork.LocalPlayer.CustomProperties["playerColor"]);
+
 		//Debug.Log("Photon Shoot Code " + m);
 
 	}
-    // Update is called once per frame
-    void Update()
-    {
 
-		
+	public Sprite getPaintSpriteFromColor(string colorString)
+    {
+		if (colorString.Equals("red"))
+		{
+			return this.redPainting;
+		}
+		else if (colorString.Equals("green"))
+		{
+			return this.greenPainting;
+		}
+		else if (colorString.Equals("blue"))
+		{
+			return this.bluePainting;
+		}
+		else if (colorString.Equals("cyan"))
+		{
+			return this.cyanPainting;
+		}
+		else
+		{
+			return this.yellowPainting;
+		}
 	}
+
     public void Shot()
     {
 
@@ -89,7 +116,7 @@ public class Shoot : MonoBehaviour
 					scoreText.text = score.ToString();
 					//scoreText.text("hello");
 
-					
+
 
 				}
 				overlap = false;

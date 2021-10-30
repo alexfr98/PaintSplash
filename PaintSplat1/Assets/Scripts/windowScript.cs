@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 public class windowScript : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -17,7 +18,7 @@ public class windowScript : MonoBehaviour
     public Text timeText;
     public Button repeatButton;
     private int timeWaiting = 4;
-    private float gameDuration = 50f; //This number is the TOTAL GAME time. So it would be gameDuration-timeWaiting seconds playing
+    private float gameDuration = 10f; //This number is the TOTAL GAME time. So it would be gameDuration-timeWaiting seconds playing
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,11 @@ public class windowScript : MonoBehaviour
 		if (gameDuration <= 0)
 		{
 			finish = true;
-			gameOverText.gameObject.SetActive(true);
+            ExitGames.Client.Photon.Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+            hashtable.Add("score", Shoot.score);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
+            SceneManager.LoadScene("ScoreScene");
+            gameOverText.gameObject.SetActive(true);
 			gameObject.SetActive(false);
 			GOPanel.gameObject.SetActive(true);
 		}
@@ -53,13 +58,10 @@ public class windowScript : MonoBehaviour
             shootButton.gameObject.SetActive(true);
             if (decision == 0)
             {
-               
-                Debug.Log("0,0");
                 rb.AddForce(new Vector2(Random.Range(-150, -100) * level, Random.Range(-150, -100) * level));
             }
             else if (decision == 1)
             {
-                Debug.Log("1");
                 rb.AddForce(new Vector2(Random.Range(100, 150) * level, Random.Range(-150, -100) * level));
             }
         }
@@ -72,10 +74,9 @@ public class windowScript : MonoBehaviour
             finish = true;
             this.gameObject.SetActive(false);
             timeText.gameObject.SetActive(false);
-
         }
 
-		if (start && !finish)
+        if (start && !finish)
 		{
 			//string x = gameDuration.ToString();
 			timeText.text = (x);
@@ -83,7 +84,7 @@ public class windowScript : MonoBehaviour
 	}
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       
+
         int decision = Random.Range(0, 2);
 
         if (collision.gameObject.name == "UpCollider")
