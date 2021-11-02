@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviourPunCallbacks
 {
     public Text player1Label;
     public Text player2Label;
@@ -22,12 +22,18 @@ public class ScoreManager : MonoBehaviour
         if (playerCount >= 2) { this.player2Label.text = players[1].NickName + " : " + (int)players[0].CustomProperties["score"]; this.player2Label.color = LobbyManager.getColor((string)players[1].CustomProperties["playerColor"]); }
         if (playerCount >= 3) { this.player3Label.text = players[2].NickName + " : " + (int)players[0].CustomProperties["score"]; this.player3Label.color = LobbyManager.getColor((string)players[2].CustomProperties["playerColor"]); }
         if (playerCount >= 4) { this.player4Label.text = players[3].NickName + " : " + (int)players[0].CustomProperties["score"]; this.player4Label.color = LobbyManager.getColor((string)players[3].CustomProperties["playerColor"]); }
-        PhotonNetwork.LoadLevel("ScoreScene");
     }
 
     public void onButtonExit()
     {
+        Debug.Log("Button clicked !");
         PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log("Room left!");
         SceneManager.LoadScene("Lobby");
+
     }
 }

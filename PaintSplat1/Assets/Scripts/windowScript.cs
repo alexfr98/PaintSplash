@@ -35,53 +35,59 @@ public class windowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-		gameDuration -= Time.deltaTime;
-		string x = gameDuration.ToString();
-		timeText.text = (x);
-
-		if (gameDuration <= 0)
-		{
-			finish = true;
-            ExitGames.Client.Photon.Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;
-            hashtable.Add("score", Shoot.score);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
-            SceneManager.LoadScene("ScoreScene");
-            gameOverText.gameObject.SetActive(true);
-			gameObject.SetActive(false);
-			GOPanel.gameObject.SetActive(true);
-		}
-        if (Time.time > timeWaiting && !start) {
-            start = true;
-            int decision = Random.Range(0, 2);
-            timeText.gameObject.SetActive(true);
-            shootButton.gameObject.SetActive(true);
-            if (decision == 0)
-            {
-                rb.AddForce(new Vector2(Random.Range(-150, -100) * level, Random.Range(-150, -100) * level));
-            }
-            else if (decision == 1)
-            {
-                rb.AddForce(new Vector2(Random.Range(100, 150) * level, Random.Range(-150, -100) * level));
-            }
-        }
-        if (gameDuration > 0 && !finish)
+        if (!finish)
         {
-            repeatButton.gameObject.SetActive(true);
-            gameOverText.gameObject.SetActive(true);
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            repeatButton.onClick.AddListener(TaskOnClick);
-            finish = true;
-            this.gameObject.SetActive(false);
-            timeText.gameObject.SetActive(false);
-        }
+            gameDuration -= Time.deltaTime;
+            string x = gameDuration.ToString();
+            timeText.text = (x);
 
-        if (start && !finish)
-		{
-			//string x = gameDuration.ToString();
-			timeText.text = (x);
-		}
-	}
+            if (gameDuration <= 0)
+            {
+                finish = true;
+                ExitGames.Client.Photon.Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+                hashtable.Add("score", Shoot.score);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
+                gameOverText.gameObject.SetActive(true);
+                gameObject.SetActive(false);
+                GOPanel.gameObject.SetActive(true);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonNetwork.LoadLevel("ScoreScene");
+                }
+            }
+            if (Time.time > timeWaiting && !start)
+            {
+                start = true;
+                int decision = Random.Range(0, 2);
+                timeText.gameObject.SetActive(true);
+                shootButton.gameObject.SetActive(true);
+                if (decision == 0)
+                {
+                    rb.AddForce(new Vector2(Random.Range(-150, -100) * level, Random.Range(-150, -100) * level));
+                }
+                else if (decision == 1)
+                {
+                    rb.AddForce(new Vector2(Random.Range(100, 150) * level, Random.Range(-150, -100) * level));
+                }
+            }
+            if (gameDuration > 0 && !finish)
+            {
+                repeatButton.gameObject.SetActive(true);
+                gameOverText.gameObject.SetActive(true);
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                repeatButton.onClick.AddListener(TaskOnClick);
+                finish = true;
+                this.gameObject.SetActive(false);
+                timeText.gameObject.SetActive(false);
+            }
+
+            if (start && !finish)
+            {
+                //string x = gameDuration.ToString();
+                timeText.text = (x);
+            }
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
