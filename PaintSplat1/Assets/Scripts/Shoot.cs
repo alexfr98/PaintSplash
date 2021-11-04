@@ -97,6 +97,11 @@ public class Shoot : MonoBehaviour
 
 				foreach (Transform child in window.transform)
 				{
+
+					Debug.Log(Player.transform.position.x.ToString());
+					Debug.Log(Player.transform.position.y.ToString());
+					Debug.Log(child.transform.position.x.ToString());
+					Debug.Log(child.transform.position.y.ToString());
 					if (Player.transform.position.x < child.transform.position.x + child.transform.localScale.x / 2 && Player.transform.position.x > child.transform.position.x - child.transform.localScale.x / 2
 				&& Player.transform.position.y < child.transform.position.y + child.transform.localScale.y / 2 && Player.transform.position.y > child.transform.position.y - child.transform.localScale.y / 2)
 					{
