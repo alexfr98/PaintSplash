@@ -19,9 +19,9 @@ public class ScoreManager : MonoBehaviourPunCallbacks
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
         Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
         if (playerCount >= 1) { this.player1Label.text = players[0].NickName + " : " + (int)players[0].CustomProperties["score"]; this.player1Label.color = LobbyManager.getColor((string)players[0].CustomProperties["playerColor"]); }
-        if (playerCount >= 2) { this.player2Label.text = players[1].NickName + " : " + (int)players[0].CustomProperties["score"]; this.player2Label.color = LobbyManager.getColor((string)players[1].CustomProperties["playerColor"]); }
-        if (playerCount >= 3) { this.player3Label.text = players[2].NickName + " : " + (int)players[0].CustomProperties["score"]; this.player3Label.color = LobbyManager.getColor((string)players[2].CustomProperties["playerColor"]); }
-        if (playerCount >= 4) { this.player4Label.text = players[3].NickName + " : " + (int)players[0].CustomProperties["score"]; this.player4Label.color = LobbyManager.getColor((string)players[3].CustomProperties["playerColor"]); }
+        if (playerCount >= 2) { this.player2Label.text = players[1].NickName + " : " + (int)players[1].CustomProperties["score"]; this.player2Label.color = LobbyManager.getColor((string)players[1].CustomProperties["playerColor"]); }
+        if (playerCount >= 3) { this.player3Label.text = players[2].NickName + " : " + (int)players[2].CustomProperties["score"]; this.player3Label.color = LobbyManager.getColor((string)players[2].CustomProperties["playerColor"]); }
+        if (playerCount >= 4) { this.player4Label.text = players[3].NickName + " : " + (int)players[3].CustomProperties["score"]; this.player4Label.color = LobbyManager.getColor((string)players[3].CustomProperties["playerColor"]); }
     }
 
     public void onButtonExit()
@@ -32,6 +32,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        PhotonNetwork.LocalPlayer.CustomProperties = new ExitGames.Client.Photon.Hashtable();
         Debug.Log("Room left!");
         SceneManager.LoadScene("Lobby");
 

@@ -19,9 +19,26 @@ public class windowScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.level = (int)PhotonNetwork.CurrentRoom.CustomProperties["Level"];
         rb = GetComponent<Rigidbody2D>();
 		timeText.gameObject.SetActive(false);
         shootButton.gameObject.SetActive(false);
+    }
+
+    float getSpeedFromLevel(int level)
+    {
+        if (level == 1)
+        {
+            return 150.0f;
+        }
+        else if (level == 2)
+        {
+            return 300.0f;
+        }
+        else
+        {
+            return 600.0f;
+        }
     }
 
     // Update is called once per frame
@@ -32,18 +49,18 @@ public class windowScript : MonoBehaviour
             gameDuration -= Time.deltaTime;
             string x = gameDuration.ToString();
             timeText.text = (x);
-            if (gameDuration <= 0)
+            if (gameDuration <= 0 && finish == false)
             {
-                
+
                 finish = true;
                 ExitGames.Client.Photon.Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;
                 hashtable.Add("score", Shoot.score);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
                 //gameOverText.gameObject.SetActive(true);
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    PhotonNetwork.LoadLevel("ScoreScene");
+                    StartCoroutine(waitForScoreScence());
                 }
             }
             if (Time.time > timeWaiting && !start)
@@ -142,5 +159,11 @@ public class windowScript : MonoBehaviour
     {
         Debug.Log("You have clicked the button!");
         SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+    }
+
+    IEnumerator waitForScoreScence()
+    {
+        yield return new WaitForSeconds(3);
+        PhotonNetwork.LoadLevel("ScoreScene");
     }
 }

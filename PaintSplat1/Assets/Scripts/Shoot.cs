@@ -80,7 +80,6 @@ public class Shoot : MonoBehaviour
 		{
 			var bullet = Instantiate(Bullet);
 
-
 			//go = PhotonNetwork.Instantiate(Bullet, transform.position, transform.rotation, 0);
 
 			bullet.transform.position = Camera.main.transform.position;
@@ -102,8 +101,8 @@ public class Shoot : MonoBehaviour
 					Debug.Log(Player.transform.position.y.ToString());
 					Debug.Log(child.transform.position.x.ToString());
 					Debug.Log(child.transform.position.y.ToString());
-					if (Player.transform.position.x < child.transform.position.x + child.transform.localScale.x / 2 && Player.transform.position.x > child.transform.position.x - child.transform.localScale.x / 2
-				&& Player.transform.position.y < child.transform.position.y + child.transform.localScale.y / 2 && Player.transform.position.y > child.transform.position.y - child.transform.localScale.y / 2)
+					if (Player.transform.position.x < child.transform.position.x + painting.transform.localScale.x && Player.transform.position.x > child.transform.position.x - painting.transform.localScale.x
+				&& Player.transform.position.y < child.transform.position.y + painting.transform.localScale.y && Player.transform.position.y > child.transform.position.y - painting.transform.localScale.y)
 					{
 						Debug.Log("Overlap");
 						overlap = true;
@@ -116,7 +115,15 @@ public class Shoot : MonoBehaviour
 					var newPainting = PhotonNetwork.Instantiate(painting.name, Player.transform.position, Quaternion.identity, 0);
 						//Instantiate(painting, Player.transform.position, Quaternion.identity);
 					newPainting.transform.parent = window.transform;
-                    //Change Color?
+					//Change Color?
+					if (newPainting.GetPhotonView().IsMine)
+					{
+						newPainting.GetComponent<SpriteRenderer>().sprite = getPaintSpriteFromColor((string)PhotonNetwork.LocalPlayer.CustomProperties["playerColor"]);
+					}
+					else
+					{
+						newPainting.GetComponent<SpriteRenderer>().sprite = getPaintSpriteFromColor((string)newPainting.GetPhotonView().Owner.CustomProperties["playerColor"]);
+					}
 					score += 1;
 					scoreText.text = score.ToString();
 					//scoreText.text("hello");

@@ -28,8 +28,14 @@ public class Player1 : MonoBehaviour
 		Debug.Log(Image_2.name);
 		//FindWithTag("MovePiece").GetComponent<GameObject>();
 		//FindGameObjectWithTag("MovePiece")
-		renderer.color = LobbyManager.getColor((string)PhotonNetwork.LocalPlayer.CustomProperties["playerColor"]);
-
+		if (view.IsMine)
+		{
+			renderer.color = LobbyManager.getColor((string)PhotonNetwork.LocalPlayer.CustomProperties["playerColor"]);
+		}
+		else
+        {
+			renderer.color = LobbyManager.getColor((string)view.Owner.CustomProperties["playerColor"]);
+		}
 	}
 
 	// Update is called once per frame
