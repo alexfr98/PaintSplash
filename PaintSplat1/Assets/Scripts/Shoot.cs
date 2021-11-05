@@ -43,7 +43,7 @@ public class Shoot : MonoBehaviour
 			}
 		}
 
-		this.painting.GetComponent<SpriteRenderer>().sprite = getPaintSpriteFromColor((string)PhotonNetwork.LocalPlayer.CustomProperties["playerColor"]);
+		//this.painting.GetComponent<SpriteRenderer>().sprite = getPaintSpriteFromColor((string)PhotonNetwork.LocalPlayer.CustomProperties["playerColor"]);
 
 		//Debug.Log("Photon Shoot Code " + m);
 

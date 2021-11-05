@@ -15,7 +15,7 @@ public class windowScript : MonoBehaviour
     public Button shootButton;
     public Text timeText;
     private int timeWaiting = 4;
-    private float gameDuration = 10f; //This number is the TOTAL GAME time. So it would be gameDuration-timeWaiting seconds playing
+    private float gameDuration = 100f; //This number is the TOTAL GAME time. So it would be gameDuration-timeWaiting seconds playing
     // Start is called before the first frame update
     void Start()
     {
